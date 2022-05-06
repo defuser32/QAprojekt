@@ -1,5 +1,12 @@
+import java.util.Date;
+
 public class book {
 
-    int id;
+    int ISBN;
+    String Name;
+    String Genre;
+    Date publishYear;
+    Boolean Loaned;
+    int Amount;
 
 }

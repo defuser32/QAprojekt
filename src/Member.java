@@ -5,16 +5,19 @@ import java.util.ArrayList;
 
 public class Member extends user{
 
-    String	url     =	"jdbc:mysql://localhost:3306/sys";
+    String	url     =	"jdbc:mysql://localhost:3306/projekt";
     String	user	=	"root";
     String	pass    =	"root";
     public int uID;
+    public String  temp;
+
+     int [] memberUID;
 
 
-    public Member(String surName, String lastName, boolean admin, String pid, int typeOfUser) {
+    public Member(String surName, String lastName, boolean admin, long pid, int typeOfUser) {
         super(surName, lastName, admin, pid, typeOfUser);
-        String temp = pid.toString();
-        temp.substring(temp.length()-5);
+        String temp = Long.toString(pid);
+        temp.substring(temp.length()-4);
         uID = Integer.parseInt(temp);
 
     }
@@ -28,17 +31,37 @@ public class Member extends user{
             System.out.println("Connected");
             Statement statement = connect.createStatement();
 
-            Resultset members = (Resultset) statement.executeQuery("Select uID from artist");
+             ResultSet members =  statement.executeQuery("Select uID from members");
 
-            while (((ResultSet) members).next()) {
-              //  if (members.get)
-
+            while (members.next()) {
+                int x = 1;
+                int temp = members.getInt(x);
+                 if (temp == member.uID) {
+                     System.out.println("User already exists");
+                 } else {
+                     x++;
+                 }
             }
+        } catch (SQLException ex) {
+            System.out.println("Error - " + ex);
+        }
 
+        try {
+            Connection connect = DriverManager.getConnection(url , user, pass);
+            System.out.println("Connected");
+            Statement statement = connect.createStatement();
 
-            /**
-             * Try catch methods catches error in case of database access or other errors.
-             */
+            ResultSet members =  statement.executeQuery("Insert into members ");
+
+            while (members.next()) {
+                int x = 1;
+                int temp = members.getInt(x);
+                if (temp == member.uID) {
+                    System.out.println("User already exists");
+                } else {
+                    x++;
+                }
+            }
         } catch (SQLException ex) {
             System.out.println("Error - " + ex);
         }

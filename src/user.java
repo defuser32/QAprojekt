@@ -10,11 +10,13 @@ public class user {
     String lastName;
     int typeOfUser;
     boolean admin;
-    int pid;
+    long pid;
     Scanner scan = new Scanner(System.in);
-    private ArrayList <Member> memberList;
 
-    public user(String surName, String lastName, boolean admin, String pid, int typeOfUser) {
+
+
+
+    public user(String surName, String lastName, boolean admin, long pid, int typeOfUser) {
 
 
     }
@@ -47,13 +49,13 @@ public class user {
             admin = false;
         }
         System.out.println("Enter PID (10 digits)");
-        String pid = scan.nextLine();
+        long pid = scan.nextLong();
 
         System.out.println("What kind of user are you?");
         System.out.println("1: postgrad 2: undergrad 3: master 4: teacher");
         int typeOfUser = scan.nextInt();
 
-         Member member = new Member(surName, lastName, admin, pid, typeOfUser);
+        Member member = new Member(surName, lastName, admin, pid, typeOfUser);
 
 
 

@@ -1,14 +1,7 @@
 public class Librarian extends user {
 
-    public Librarian(String peter, int id, boolean admin) {
-        super(peter, id, admin);
-    }
 
-    public void suspend (int id) {
-
-    }
-
-    public void seeLate (){
-
+    public Librarian(String surName, String lastName, boolean admin, String pid, int typeOfUser) {
+        super(surName, lastName, admin, pid, typeOfUser);
     }
 }

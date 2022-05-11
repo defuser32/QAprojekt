@@ -1,3 +1,7 @@
+import com.mysql.cj.protocol.Resultset;
+
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class user {
@@ -5,10 +9,10 @@ public class user {
     String surName;
     String lastName;
     int typeOfUser;
-
     boolean admin;
     int pid;
     Scanner scan = new Scanner(System.in);
+    private ArrayList <Member> memberList;
 
     public user(String surName, String lastName, boolean admin, String pid, int typeOfUser) {
 
@@ -51,12 +55,19 @@ public class user {
 
          Member member = new Member(surName, lastName, admin, pid, typeOfUser);
 
+
+
     }
 
     public void login () {
         System.out.println();
 
     }
+
+    /**
+     * Method checks if a current user is member by checking last 4 of PID
+     * @return
+     */
 
 
 }

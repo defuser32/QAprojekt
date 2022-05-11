@@ -22,6 +22,12 @@ public class Member extends user{
 
     }
 
+    public static void main(String[] args) {
+        user user1 = new user("Emil", "Dahl", false, 9708237830L, 3);
+        user1.start();
+
+    }
+
 
 
     public void addMember(Member member) {
@@ -61,6 +67,41 @@ public class Member extends user{
                 } else {
                     x++;
                 }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error - " + ex);
+        }
+
+
+        try {
+            Connection connect = DriverManager.getConnection(url , user, pass);
+            System.out.println("Connected");
+            Statement statement = connect.createStatement();
+
+            ResultSet members =  statement.executeQuery("Select uID from members" + member.surName);
+
+            while (members.next()) {
+                int x = 1;
+                int temp = members.getInt(x);
+                if (temp == member.uID) {
+                    System.out.println("User already exists");
+                } else {
+                    x++;
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error - " + ex);
+        }
+
+        try {
+            Connection connect = DriverManager.getConnection(url , user, pass);
+            System.out.println("Connected");
+            Statement statement = connect.createStatement();
+
+            ResultSet members =  statement.executeQuery("Insert into members ( ");
+
+            while (members.next()) {
+
             }
         } catch (SQLException ex) {
             System.out.println("Error - " + ex);

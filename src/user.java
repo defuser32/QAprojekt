@@ -56,6 +56,7 @@ public class user {
         int typeOfUser = scan.nextInt();
 
         Member member = new Member(surName, lastName, admin, pid, typeOfUser);
+        member.addMember(member);
 
 
 

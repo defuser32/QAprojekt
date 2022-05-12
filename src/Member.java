@@ -1,34 +1,32 @@
 import com.mysql.cj.protocol.Resultset;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 public class Member extends user{
 
     String	url     =	"jdbc:mysql://localhost:3306/projekt";
     String	user	=	"root";
     String	pass    =	"root";
-    public int uID;
-    public String  temp;
+    public String uID;
+    public String suspended;
+    public int borrowedBooks;
 
-     int [] memberUID;
 
-
-    public Member(String surName, String lastName, boolean admin, long pid, int typeOfUser) {
-        super(surName, lastName, admin, pid, typeOfUser);
-        String temp = Long.toString(pid);
-        temp.substring(temp.length()-4);
-        uID = Integer.parseInt(temp);
-
-    }
-
-    public static void main(String[] args) {
-        user user1 = new user("Emil", "Dahl", false, 9708237830L, 3);
-        user1.start();
-
+    public Member(String surName, String lastName, String admin, String pid, String typeOfUser) {
+        this.surName = surName;
+        this.lastName = lastName;
+        this.admin = admin;
+        this.pid = pid;
+        this.typeOfUser = typeOfUser;
+        uID  = pid.substring(pid.length() - 4); //sista fyra i PID
     }
 
 
+    /**
+     * The methods takes a member object and uses data to crate a user in the MEMBERS table in the database.
+     * If the users unique uID which is last 4 of PID already exists this stops and inform user.
+     * @param member
+     */
 
     public void addMember(Member member) {
 
@@ -41,9 +39,10 @@ public class Member extends user{
 
             while (members.next()) {
                 int x = 1;
-                int temp = members.getInt(x);
-                 if (temp == member.uID) {
+                String temp = members.getString(x);
+                 if (temp.equals( member.uID)) {
                      System.out.println("User already exists");
+                     break;
                  } else {
                      x++;
                  }
@@ -57,55 +56,32 @@ public class Member extends user{
             System.out.println("Connected");
             Statement statement = connect.createStatement();
 
-            ResultSet members =  statement.executeQuery("Insert into members ");
+            /**
+             *  *GREJ ATT GÖRA*
+             *  här bör det också läggas in borrowed books och suspended, behövs metoder för att checka detta som
+             *  vi sen kallar på för att få fram rätt data som ska skrivas till databasen.
+             */
 
-            while (members.next()) {
-                int x = 1;
-                int temp = members.getInt(x);
-                if (temp == member.uID) {
-                    System.out.println("User already exists");
-                } else {
-                    x++;
-                }
-            }
+            String sql = " insert into members (fname, lnamn, PID, uID, isAdmin, typeOfUser)"
+                    + " values (?, ?, ?, ?, ?, ?)";
+
+            PreparedStatement preparedStmt = connect.prepareStatement(sql);
+            preparedStmt.setString (1, member.getSurName());
+            preparedStmt.setString (2, member.getLastName());
+            preparedStmt.setString  (3, member.getPid());
+            preparedStmt.setString(4, member.uID);
+            preparedStmt.setString    (5, member.getAdmin());
+            preparedStmt.setString    (6, member.getTypeOfUser());
+            preparedStmt.execute();
+
+
         } catch (SQLException ex) {
             System.out.println("Error - " + ex);
         }
 
 
-        try {
-            Connection connect = DriverManager.getConnection(url , user, pass);
-            System.out.println("Connected");
-            Statement statement = connect.createStatement();
 
-            ResultSet members =  statement.executeQuery("Select uID from members" + member.surName);
 
-            while (members.next()) {
-                int x = 1;
-                int temp = members.getInt(x);
-                if (temp == member.uID) {
-                    System.out.println("User already exists");
-                } else {
-                    x++;
-                }
-            }
-        } catch (SQLException ex) {
-            System.out.println("Error - " + ex);
-        }
-
-        try {
-            Connection connect = DriverManager.getConnection(url , user, pass);
-            System.out.println("Connected");
-            Statement statement = connect.createStatement();
-
-            ResultSet members =  statement.executeQuery("Insert into members ( ");
-
-            while (members.next()) {
-
-            }
-        } catch (SQLException ex) {
-            System.out.println("Error - " + ex);
-        }
 
 
     }

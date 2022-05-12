@@ -8,15 +8,15 @@ public class user {
 
     String surName;
     String lastName;
-    int typeOfUser;
-    boolean admin;
-    long pid;
+    String typeOfUser;
+    String admin;
+    String pid;
     Scanner scan = new Scanner(System.in);
 
 
 
 
-    public user(String surName, String lastName, boolean admin, long pid, int typeOfUser) {
+    public user() {
 
 
     }
@@ -35,27 +35,66 @@ public class user {
     }
 
 
+    public String getSurName() {
+        return surName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getTypeOfUser() {
+        return typeOfUser;
+    }
+
+    public void setSurName(String surName) {
+        this.surName = surName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setTypeOfUser(String typeOfUser) {
+        this.typeOfUser = typeOfUser;
+    }
+
+    public void setAdmin(String admin) {
+        this.admin = admin;
+    }
+
+    public void setPid(String pid) {
+        this.pid = pid;
+    }
+
+    public String getAdmin() {
+        return admin;
+    }
+
+    public String getPid() {
+        return pid;
+    }
 
     public void register () {
-        System.out.println("Enter surname:");
-        surName = scan.nextLine();
-        System.out.println("Enter last name");
-        lastName = scan.nextLine();
-        System.out.println("Are you admin? 1 for yes. 2 for no.");
-        int choice = scan.nextInt();
+        System.out.print("Enter surname: ");
+        surName = scan.next();
+        System.out.print("Enter last name: ");
+        lastName = scan.next();
+        System.out.print("Are you admin? 1 for yes. 2 for no: ");
+        int choice = Integer.parseInt(scan.next());
         if (choice == 1) {
-            admin = true;
+            admin = "Y";
         } else if (choice == 2) {
-            admin = false;
+            admin = "N";
         }
-        System.out.println("Enter PID (10 digits)");
-        long pid = scan.nextLong();
+        System.out.print("Enter PID (10 digits): ");
+        pid = scan.next();
 
         System.out.println("What kind of user are you?");
-        System.out.println("1: postgrad 2: undergrad 3: master 4: teacher");
-        int typeOfUser = scan.nextInt();
+        System.out.print("1: postgrad  2: undergrad  3: master  4: teacher: ");
+        typeOfUser = scan.next();
 
-        Member member = new Member(surName, lastName, admin, pid, typeOfUser);
+        Member member = new Member(this.getSurName(), this.getLastName(), this.getAdmin(), this.getPid(), this.getTypeOfUser());
         member.addMember(member);
 
 

@@ -13,10 +13,6 @@ public class book {
     public int releaseYear;
     public int id;
 
-
-
-
-
     public book(int id, int isbn, String title, int releaseYear, String genre) {
         this.id = id;
         this.isbn = isbn;
@@ -28,8 +24,6 @@ public class book {
 
 
     public void addItem (book book) {
-
-
         try {
             Connection connect = DriverManager.getConnection(url , user, pass);
             System.out.println("Connected");
@@ -44,9 +38,6 @@ public class book {
                     System.out.println("Adding extra copy of book");
                     book.numberOfBooks++;
                     try {
-
-
-
                         String query = "update item set numberOfItems = ? where isbn =" + book.isbn;
                         PreparedStatement preparedStmt = connect.prepareStatement(query);
                         preparedStmt.setInt   (1, book.numberOfBooks );
@@ -67,7 +58,6 @@ public class book {
         try {
             Connection connect = DriverManager.getConnection(url , user, pass);
             System.out.println("Connected");
-            Statement statement = connect.createStatement();
 
             String sql = " insert into item (ISBN, name, genre, releaseYear)"
                     + " values (?, ?, ?, ?)";
@@ -86,8 +76,6 @@ public class book {
         }
 
     }
-
-
     public int getIsbn() {
         return isbn;
     }

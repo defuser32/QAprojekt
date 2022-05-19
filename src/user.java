@@ -13,12 +13,7 @@ public class user {
     String pid;
     Scanner scan = new Scanner(System.in);
 
-
-
-
     public user() {
-
-
     }
 
     public void start () {
@@ -96,8 +91,6 @@ public class user {
 
         Member member = new Member(this.getSurName(), this.getLastName(), this.getAdmin(), this.getPid(), this.getTypeOfUser());
         member.addMember(member);
-
-
 
     }
 
